@@ -3,12 +3,13 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/signup', function(req, res) {
-	res.render('auth/signup');
+	res.render('signup');
 });
 
 router.post('/signup', function(req, res) {
 	if (req.body.password != req.body.password2) {
-		res.redirect('/auth/signup');
+		req.flash('danger', 'Passwords do not match!');
+		res.redirect('signup');
 	} else {
 		db.user.findOrCreate({
 			where: {
@@ -17,14 +18,15 @@ router.post('/signup', function(req, res) {
 			defaults: {
 				email: req.body.email,
 				password: req.body.password,
-				name: req.body.name
+				firstName: req.body.firstName,
+				lastName: req.body.lastName
 			}
 		}).spread(function(user, created) {
 			if (created) {
 				res.redirect('/');
 			} else {
-				// User email exists error
-				res.redirect('/auth/signup');
+				req.flash('danger', 'Email already exists!');
+				res.redirect('signup');
 			}
 		}).catch(function(err) {
 			if (err.message) {
@@ -32,25 +34,26 @@ router.post('/signup', function(req, res) {
 			} else {
 				console.log(err);
 			}
-			res.redirect('/auth/signup');
+			res.redirect('signup');
 		});
 	}
 });
 
 router.get('/login', function(req, res) {
-	res.render('auth/login');
+	res.render('login');
 })
 
 router.post('/login', function(req, res) {
 	db.user.authenticate(req.body.email, req.body.password, function(err, user) {
 		if (err) { // if callback passes an error message
-			res.send(err);
 		} else if (user) { // if callback passes a user object
 			req.session.user = user.id;
 			res.redirect('/');
+
 		} else { // if callback passes a false
 			// Invalid username or password error TODO
-			res.redirect('/auth/login');
+			req.flash('danger', 'Invalid email or password')
+			res.redirect('login');
 		}
 	});
 });

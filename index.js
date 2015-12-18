@@ -134,52 +134,6 @@ app.get('/terms', function(req, res){
 });
 
 
-//deletes favorites
-// app.delete('/favorites', function(req, res) {
-//   var index = 
-
-
-//   res.status(200).send('Deleted Successfully!');
-// });
-
-
-//load routes
-// app.use('/conditions', require('./controllers/condition'));
-// app.use('/favorites', require('./controllers/favorite'));
-// app.use('/', require('./controllers/'));
-
-
-//app.post('/login', function(req, res) {
-// 	var password = req.body.password;
-// 	var newPassword;
-// 	bcrypt.hash(password, 10, function(err, hash) {
-// 		newPassword = hash;
-
-// 		bcrypt.compare(password, newPassword, function(err, res) {
-// 			if(res === true) {
-// 				res.render();//direct to new page 1
-// 			} else {
-// 				res.direct('/login');
-// 			}r
-// 		 });
-// 	});
-// });
-
-
-// app.use(session({
-//   secret: 'sasdlfkajsldfkajweoriw234234ksdfjals23',
-//   resave: false,
-//   saveUninitialized: true
-// }));
-
-// app.use(passport.initialize());
-// app.use(passport.session());
-
-// passport.use(strategies.localStrategy);
-// passport.use(strategies.facebookStrategy);
-
-// passport.serializeUser(strategies.serializeUser);
-// passport.deserializeUser(strategies.deserializeUser);
 
 app.use(function(req,res,next){
   res.locals.currentUser = req.user;

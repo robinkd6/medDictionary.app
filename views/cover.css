@@ -23,7 +23,9 @@ a:hover {
 /*
  * Base structure
  */
-
+.condition {
+  border: 10px solid white;
+}
 html,
 body {
   height: 100%;
@@ -165,4 +167,9 @@ body {
   .cover-container {
     width: 700px;
   }
+}
+.well {
+   border: solid red 5px;
+   overflow: scroll;
+   height: 70%;
 }

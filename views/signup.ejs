@@ -6,29 +6,35 @@
 
           <div class="masthead clearfix">
             <div class="inner">
-              <h3 class="masthead-brand">Medical Dictionary</h3>
+             
               <nav>
                 <ul class="nav masthead-nav">
                   <li class=""><a href="/">Home</a></li>
-                  <li class=""><a href="#">Prescription</a></li>
+                  <li class=""><a href="#">Tests</a></li>
                   <li class="" data-toggle="pill"><a href="/">Profile</a></li>
                   <li class=""><a href="/login">Log in</a></li>
                 </ul>
               </nav>
-            </div>
-          </div>
-          
-          <div>
+             </div>
+            </div>  
+
           <!-- Email sign up -->
-         <h1>Sign Up!</h1>
+          <div class="col-md-12">
+              <h1>Sign Up</h1>
             <hr>
             <form class="form" method="POST" action="/auth/signup">
-            <input type="text" class="form-control" placeholder="Enter your email" name="email"><br><br>
-            <input type="text" class="form-control" placeholder="Enter your name" name="name"><br><br>
-            <input type="password" class="form-control" placeholder="Choose a password" name="password"><br><br>
-            <input type="password" class="form-control" placeholder="Re-type password" name="password2"><br><br>
-            <input type="submit" value="sign up" class="btn btn-primary">
+            <input type="text" class="form-inline" placeholder="Enter your email" name="email"><br><br>
+            <input type="text" class="form-horizontal" placeholder="Enter your first name" name="firstName"><br><br>
+             <input type="text" class="form-horizontal" placeholder="Enter your last name" name="lastName"><br><br>
+            <input type="password" class="form-horizontal" placeholder="Choose a password" name="password"><br><br>
+            <input type="password" class="form-horizontal" placeholder="Re-type password" name="password2"><br><br>
+            <input type="submit" value="Sign up" class="btn btn-success">
             </form>
+          </div><br> or
+              <a href="/login">Login</a>
+              <p>- It's free and always will be -</p>
+            </br>  
+          
           </div>
 
           <div class="mastfoot">
