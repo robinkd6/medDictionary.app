@@ -60,8 +60,9 @@ router.post('/login', function(req, res) {
 
 router.get('/logout', function(req, res) {
 	// TODO send logout message
-	req.session.user = false;
-	res.redirect('/');
+	req.logout();
+	req.flash('info', 'You have been logged out.');
+ 	res.redirect('/');
 });
 
 module.exports = router;

@@ -7,6 +7,7 @@ var express = require('express'),
 	app = express(),
 	flash = require('connect-flash'),
 	db = require('./models'),
+	bcrypt = require('bcrypt'),
 	passport = require('passport'),
 	strategies = require('./config/strategies'),
 	ejsLayouts = require('express-ejs-layouts');
@@ -40,31 +41,17 @@ app.use(function(req, res, next) {
 	}
 });
 
-//second middlware
-app.use(function(req, res, next) {
-	res.locals.currentUser = req.currentUser;//set response.locals to currentUser so we can use the currentUser object (email, name, password)in our template
-	// TO DO pass alerts
-	next();
+app.get('/risks1', function(req, res) {
+	res.render('risks.ejs');
 });
+
+
 
 app.get('/', function(req, res) {
 	res.render('index');
 });
 
-app.get('/', function(req, res) {
-	// request({
-	// 	headers: {
-	// 		Accept: 'application/json',
-	// 		app_id: '8d756068',
-	// 		app_key: '76a1ce85406a5ce8133399c69003c5ae'
-	// 	},
-	// 	uri: 'https://api.infermedica.com/v1/conditions'
-	// }, function(err, resp, data) {
-	// 	console.log(data);
-	// });
-	res.render('index');
-});
-
+//condition search
 app.get('/conditions', function(req, res) {
 	var searchQuery = req.query.q;
 	request(
@@ -78,6 +65,19 @@ app.get('/conditions', function(req, res) {
 	);
 
 });
+//riskfactors search 
+app.get('/riskfactors', function(req, res) {
+	var searchQuery = req.query.q;
+	request(
+	{
+		url : process.env.BASE_URL + 'risks?q=' + searchQuery,
+		json : true
+	},
+	function(err, resp, riskfactors){
+		res.send(riskfactors);
+		}
+	);
+});
 
 app.get('/signup', function(req, res) {
 	res.render('signup');
@@ -87,18 +87,8 @@ app.get('/login', function(req, res) {
 	res.render('login');
 });
 
-app.get('/profile', function(req, res) {
-	res.render('/profile');
-});
-
-app.get('/condition', function(req, res) {
 
 
-});
-
-app.get('/condition/:id', function(req, res) {
-
-});
 
 app.get('/terms', function(req, res){
 	var searchQuery = req.query.q;
@@ -133,6 +123,40 @@ app.get('/terms', function(req, res){
 	});
 });
 
+app.get('/risks', function(req, res){
+	var searchQuery = req.query.q;
+
+	function getAllRiskFactors(callback){
+		var riskoptions = {
+			url: 'https://api.infermedica.com/v1/risk_factors',
+			headers: {
+				'Accept'  : 'application/json',
+				'app_id'  : process.env.APP_ID,
+				'app_key' : process.env.APP_KEY
+			}
+		};
+
+		request(riskoptions, function(err, resp, body) {
+			callback(null, JSON.parse(body))
+			console.log(JSON.parse(body));
+		});
+
+	}
+console.log('hello');
+	async.series([getAllRiskFactors], function(err, results) {
+		var riskFactorsAll = results;
+		var riskFactorsFiltered = [];
+
+		riskFactorsAll[0].forEach(function(riskfactor) {
+			if(riskfactor.name.indexOf(searchQuery) >= 0){
+				riskFactorsFiltered.push(riskfactor);
+			}
+		});
+		console.log(riskFactorsFiltered);
+				// res.render('riskfactors',{riskfacktors: riskFactorsFiltered});
+				res.render('riskfactors',{riskFactorsFiltered: riskFactorsFiltered});
+	 });
+});
 
 
 app.use(function(req,res,next){
