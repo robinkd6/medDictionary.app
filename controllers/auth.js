@@ -41,7 +41,7 @@ router.post('/signup', function(req, res) {
 
 router.get('/login', function(req, res) {
 	res.render('login');
-})
+});
 
 router.post('/login', function(req, res) {
 	db.user.authenticate(req.body.email, req.body.password, function(err, user) {
@@ -60,6 +60,7 @@ router.post('/login', function(req, res) {
 
 router.get('/logout', function(req, res) {
 	// TODO send logout message
+	console.log("moo");
 	req.logout();
 	req.flash('info', 'You have been logged out.');
  	res.redirect('/');

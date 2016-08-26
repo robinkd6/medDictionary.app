@@ -1,3 +1,22 @@
+<h2>Results:</h2>
+
+
+
+
+
+
+
+<% conditions.forEach(function(condition){ %>
+<div class="form-control" style="background: black">
+  <a href="risks1"><p><%= condition.name %></p></a>
+  <br>
+  <br>
+</div>
+<% }); %>
+
+
+
+
 <div class="site-wrapper">
 
 <div class="site-wrapper-inner">
@@ -9,39 +28,17 @@
   <nav>
     <ul class="nav masthead-nav">
       <li class=""><a href="/">Home</a></li>
-      <li class="" data-toggle="pill"><a href="/">Test</a></li>
-      <li class="" data-toggle="pill"><a href="/profile">Profile</a></li>
-      <li class="" data-toggle="pill"><a href="/login">Log in</a></li>
+      <li class=""><a href="profile">Profile</a></li>
+      <li class=""><a href="/login">Log Out</a></li>
+       <form class="navbar-form navbar-right" action="/conditions" method="GET" role="form">
+                      <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Search" name="q">
+                      </div>
+                      <button type="submit" class="btn btn-success">Search</button>
+                  </form>
     </ul>
   </nav>
 
 
 
 <div class="inner">
-<h2>Results:</h2>
-
-<% conditions.forEach(function(condition){ %>
-<div class="form-control" style="background: black">
-	<a href="risks1"><p><%= condition.name %></p></a>
-	<br>
-	<br>
-</div>
-<% }); %>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-

@@ -10,8 +10,12 @@
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="/">Home</a></li>
-                 
-                  <li><a href="/login">Log in</a></li>
+                  <li class=""><a href="profile">Profile</a></li>
+                 <% if (!currentUser) { %>
+                 <li><a href="/login">Log in</a></li>
+                 <% } else { %>
+                  <li><a href="/auth/logout">Log out</a></li>
+                  <% } %>
                 </ul>
               </nav>
             </div>

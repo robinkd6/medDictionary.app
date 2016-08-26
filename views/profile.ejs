@@ -1,44 +1,28 @@
-    <div class="site-wrapper">
-
-      <div class="site-wrapper-inner">
-
-        <div class="cover-container">
-
-          <div class="masthead clearfix">
+<div class="masthead clearfix">
             <div class="inner">
-              <h3 class="masthead-brand">Medical Dictionary</h3>
+             
               <nav>
                 <ul class="nav masthead-nav">
                   <li class=""><a href="/">Home</a></li>
-                  <li class=""><a href="/">Prescription</a></li>
-                  <li class=""><a href="/login">Log in</a></li>
+                  <li class=""><a href="/profile">Profile</a></li>
+                  <li class=""><a href="login">Log out</a></li>
+                   <form class="navbar-form navbar-right" action="/conditions" method="GET" role="form">
+                      <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Search" name="q">
+                      </div>
+                      <button type="submit" class="btn btn-success">Search</button>
+                  </form>
                 </ul>
               </nav>
-            </div>
-          </div>
-          
-          <div>
-          <!-- Email sign up -->
-            <p class="lead">
-            <form action=action="cgi-bin/formmail.pl" method="POST">
-              Name: <input type="text" name="name" value="" size="25" maxlength="50" />
-              <br></br>
-              Email: <input type="text" name="email" value="" size="25" maxlength="50" /> 
-              <br></br>
-              <a href="/" class="btn btn-lg btn-success">Sign Up</a>
-            </form> or <a href="/login">Login</a>
-              <p>- It's free and always will be -</p>
-            </p>
-          </div>
+             </div>
+  <div style="thumbnail" id="_giphy_tvGOBZKNEX0ac"></div><script>var _giphy = _giphy || []; _giphy.push({id: "tvGOBZKNEX0ac",w: 717, h: 304});var g = document.createElement("script"); g.type = "text/javascript"; g.async = true;g.src = ("https:" == document.location.protocol ? "https://" : "http://") + "giphy.com/static/js/widgets/embed.js";var s = document.getElementsByTagName("script")[0]; s.parentNode.insertBefore(g, s);</script>
+<div class="jumbotron"  style="background: gray">
+  <h2 style="color: white">Favorites</h2>
+  <div class="well">
+  <a href="/" class="btn btn-danger pull-right delete-btn">Delete</a>
+  <br>
+  <br>
+  </div>
 
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Free Medical Dictionary by <a href="https://twitter.com/rkd_cruz">Robin Cruz</a> of <a href="https://generalassemb.ly/">General Assembly</a>.</p>
-            </div>
-          </div>
+</div>
 
-        </div>
-
-      </div>
-
-    </div>

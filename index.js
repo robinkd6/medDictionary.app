@@ -1,16 +1,18 @@
-var express = require('express'),
-	session = require('express-session'),
-	ejsLayouts = require('express-ejs-layouts');
-	request = require('request'),
-	bodyParser = require('body-parser'),
-	async = require('async'),
-	app = express(),
-	flash = require('connect-flash'),
-	db = require('./models'),
-	bcrypt = require('bcrypt'),
-	passport = require('passport'),
-	strategies = require('./config/strategies'),
-	ejsLayouts = require('express-ejs-layouts');
+var 	express 				= require('express'),
+			session 				= require('express-session'),
+			ejsLayouts 			= require('express-ejs-layouts');
+			request 				= require('request'),
+			bodyParser 			= require('body-parser'),
+			async 					= require('async'),
+			app 						= express(),
+			flash 					= require('connect-flash'),
+			db 							= require('./models'),
+			passport 				= require('passport'),
+			LocalStrategy 	= require("passport-local"),
+			User 						= require("./models/user"),
+			// strategies 			= require('./config/strategies'),
+			ejsLayouts 			= require('express-ejs-layouts'),
+			conditionsSaved = require('./conditions.json');
 
 
 //static directory for the views
@@ -45,22 +47,27 @@ app.get('/risks1', function(req, res) {
 	res.render('risks.ejs');
 });
 
+app.get('/profile', function(req, res) {
+	res.render('profile');
+});
 
 
 app.get('/', function(req, res) {
-	res.render('index');
+	var currentUser = req.currentUser;
+	res.render('index', {currentUser: currentUser});
 });
 
 //condition search
 app.get('/conditions', function(req, res) {
 	var searchQuery = req.query.q;
+
 	request(
 		{
 			url  : process.env.BASE_URL + '/terms?q=' + searchQuery,
 			json : true
 		},
 		function(err, resp, conditions){
-			res.render('conditions', {conditions: conditions})
+			res.render('conditions', {conditions: conditions});
 		}
 	);
 
@@ -94,19 +101,20 @@ app.get('/terms', function(req, res){
 	var searchQuery = req.query.q;
 
 	function getAllConditions(callback){
-		var options = {
-		  url: 'https://api.infermedica.com/v1/conditions',
-		  headers: {
-		  	'Accept'  : 'application/json',
-		    'app_id'  : process.env.APP_ID,
-		    'app_key' : process.env.APP_KEY
-		  }
-		};
+		// var options = {
+		//   url: 'https://api.infermedica.com/v1/conditions',
+		//   headers: {
+		//   	'Accept'  : 'application/json',
+		//     'app_id'  : process.env.APP_ID,
+		//     'app_key' : process.env.APP_KEY
+		//   }
+		// };
 
-
-		request(options, function(err, resp, body){
-			callback(null, JSON.parse(body))
-		});
+		// request(options, function(err, resp, body){
+		// 	console.log(err, resp, body);
+		// 	callback(null, JSON.parse(body))
+		// });
+		callback(null, conditionsSaved);
 	}
 
 	async.series([getAllConditions], function(err, results){
